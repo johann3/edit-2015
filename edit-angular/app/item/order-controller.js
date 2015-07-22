@@ -12,13 +12,19 @@
     .module('item')
     .controller('OrderCtrl', OrderCtrl);
 
-  function OrderCtrl(Cart, Brick) {
-    var vm = this;
-    vm.ctrlName = 'OrderCtrl';
+  function OrderCtrl($http, Cart) {
+    var i,
+        vm = this;
 
+    vm.ctrlName = 'OrderCtrl';
     vm.cart = Cart.items;
-    vm.processOrder = function () {
-      Brick.sendJson(Cart.items);
+    vm.removeFrom = function (id) {
+      Cart.removeFromCart(id);
+    };
+    vm.checkOut = function () {
+      for (i = 0; i < Cart.items.length; i++) {
+        $http.post('http://10.80.49.2:8080/edit-javaee/items/get', {id: Cart.items[i].id});
+      }
     };
   }
 }());

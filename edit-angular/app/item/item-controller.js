@@ -35,6 +35,10 @@
       }
     };
 
+    vm.sendId = function (id) {
+      $http.post('http://10.80.49.2:8080/edit-javaee/items/get', {id: id});
+    };
+
     vm.isInCart = Cart.isInCart;
   }
 }());
